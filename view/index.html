@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Wich</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 ><p>เว็บนี้ไม่สามารถใช้งานได้ตาม
+            ที่ต้องการของ</p> <p id="name"></p>
+            <br>ต้องได้รับอนุญาตถึงจะเข้าถึงได้ ! 
+        </h1>
+        <input id="age" value="">
+        <button id="btn_show" type="button" class="btn btn-primary">Click Show</button>
+
+        <div id="content"></div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let btn = document.querySelector('#btn_show')
+        btn.addEventListener('click', async () => {
+            let url     = new URL('http://localhost:8080/api')
+            let age     = document.querySelector('#age').value
+            if(age.langth < 0 || age == ''){
+                alert("Please enter your age")
+            } else {
+                params = {
+                    age: age
+                }
+                url.search = new URLSearchParams(params).toString();
+                let res     = await fetch(url)
+                let data    = await res.json();
+                if(data.status == 200){
+                    document.querySelector('#name').innerHTML = data.name
+                    document.querySelector('#content').innerHTML = data.video
+                } else {
+                    alert(data.message)
+                }
+           }
+        })
+        /* if (age > 18) {
+            document.getElementById("content").innerHTML = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/n0OIhBxg-xg\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
+        } else {
+            if (age < 20) {
+                document.getElementById("content").innerHTML = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/0wj3yD2Mqkg\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
+            }
+            if (age < 18) {
+                document.getElementById("content").innerText = "คุณยังอายุน้อยเกินไปที่จะได้รับชม";
+            }
+        } */
+    </script>
+</body>
+
+</html>
