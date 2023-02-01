@@ -9,7 +9,7 @@ const app = express()
 
 //สร้างตัวแปร PORT ขึ้นมารับค่า port ในกรณีที่เราได้กำหนดไว้ใน environment ของเครื่อง
 //แต่ถ้าไม่ได้กำหนดไว้ เราจะใช้ค่า 8080 แทน
-const PORT = process.env.PORT || 8080
+const PORT =  4000
 
 //app.use('/static', express.static(path.join(__dirname, 'public')))
 app.use(express.static('view'))
